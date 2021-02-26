@@ -1,5 +1,4 @@
 import { Document } from 'mongoose';
-
 export interface Kaam extends Document {
   id?: string;
   title: string;
