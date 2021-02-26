@@ -33,6 +33,9 @@ export class KaamService {
     description: string,
     salary: string,
   ) {
+    // const updatedKaam = this.kaamModel
+    //   .findByIdAndUpdate(id, { title, description, salary }, { new: true })
+    //   .exec();
     const updatedKaam = await this.findKaam(id);
     if (title) {
       updatedKaam.title = title;
@@ -46,6 +49,14 @@ export class KaamService {
 
     updatedKaam.save();
     return updatedKaam;
+  }
+
+  async deleteKaam(id: string) {
+    const result = await this.kaamModel.deleteOne({ id }).exec();
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Could not find kaam with id ${id}`);
+    }
+    return `Kaam with id ${id} deleted successfully`;
   }
 
   private async findKaam(id: string) {

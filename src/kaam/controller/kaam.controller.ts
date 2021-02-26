@@ -1,5 +1,13 @@
 import { KaamService } from '../service/kaam.service';
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { Kaam } from '../model/kaam.interface';
 
 @Controller('kaam')
@@ -35,5 +43,11 @@ export class KaamController {
       salary,
     );
     return updatedKaam;
+  }
+
+  @Delete(':id')
+  async deleteKaam(@Param('id') kaamId: string) {
+    const response = await this.kaamService.deleteKaam(kaamId);
+    return response;
   }
 }
