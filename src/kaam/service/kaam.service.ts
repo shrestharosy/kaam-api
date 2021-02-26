@@ -1,11 +1,5 @@
 import { HttpExceptionFilter } from './../../filters/httpException.filter';
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-  UseFilters,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Kaam } from '../model/kaam.interface';
@@ -14,7 +8,11 @@ import { Kaam } from '../model/kaam.interface';
 export class KaamService {
   constructor(@InjectModel('Kaam') private readonly kaamModel: Model<Kaam>) {}
 
-  async createKaam(title: string, description: string, salary: string) {
+  async createKaam(
+    title: string,
+    description: string,
+    salary: string | number,
+  ) {
     const newKaam = new this.kaamModel({
       title,
       description,
@@ -38,7 +36,7 @@ export class KaamService {
     id: string,
     title: string,
     description: string,
-    salary: string,
+    salary: string | number,
   ) {
     // const updatedKaam = this.kaamModel
     //   .findByIdAndUpdate(id, { title, description, salary }, { new: true })

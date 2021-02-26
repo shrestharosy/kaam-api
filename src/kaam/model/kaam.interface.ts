@@ -3,5 +3,5 @@ export interface Kaam extends Document {
   id?: string;
   title: string;
   description: string;
-  salary: string;
+  salary: string | number;
 }
