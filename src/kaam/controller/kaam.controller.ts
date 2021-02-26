@@ -7,8 +7,10 @@ import {
   Param,
   Patch,
   Post,
+  UseFilters,
 } from '@nestjs/common';
 import { Kaam } from '../model/kaam.interface';
+import { HttpExceptionFilter } from 'src/filters/httpException.filter';
 
 @Controller('kaam')
 export class KaamController {
@@ -28,6 +30,7 @@ export class KaamController {
   }
 
   @Get(':id')
+  // @UseFilters(HttpExceptionFilter)
   async getKaamById(@Param('id') kaamId: string) {
     const kaam = await this.kaamService.getKaamById(kaamId);
     return kaam;

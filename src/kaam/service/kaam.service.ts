@@ -1,4 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpExceptionFilter } from './../../filters/httpException.filter';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+  UseFilters,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Kaam } from '../model/kaam.interface';
@@ -64,6 +71,7 @@ export class KaamService {
       const kaam = await this.kaamModel.findById(id).exec();
       return kaam;
     } catch (error) {
+      // throw new HttpException('No', HttpStatus.NOT_FOUND);
       throw new NotFoundException(`Couldn't find kaam with id ${id}`);
     }
   }
