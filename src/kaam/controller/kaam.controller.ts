@@ -10,7 +10,12 @@ import {
   Post,
 } from '@nestjs/common';
 import { Kaam } from '../model/kaam.interface';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('kaam')
 @Controller('kaam')
@@ -21,6 +26,7 @@ export class KaamController {
   @ApiCreatedResponse({
     description: 'Resource has been successfully created',
   })
+  @ApiBody({ type: KaamDTO })
   async createKaam(@Body() requestBody: KaamDTO) {
     const { title, description, salary } = requestBody;
     const id = await this.kaamService.createKaam(title, description, salary);
@@ -29,7 +35,7 @@ export class KaamController {
 
   @Get()
   @ApiOkResponse({
-    description: 'Resource list has been successfully returned',
+    description: 'List of all kaam has been successfully returned',
   })
   async getKaam() {
     const kaam = await this.kaamService.getKaam();
@@ -38,7 +44,7 @@ export class KaamController {
 
   @Get(':id')
   @ApiOkResponse({
-    description: 'Resource list has been successfully returned',
+    description: 'Kaam has been successfully returned',
   })
   // @UseFilters(HttpExceptionFilter)
   async getKaamById(@Param('id') kaamId: string) {
@@ -48,7 +54,7 @@ export class KaamController {
 
   @Patch(':id')
   @ApiOkResponse({
-    description: 'Resource list has been successfully updated',
+    description: 'Kaam has been successfully updated',
   })
   async updateKaam(@Param('id') kaamId: string, @Body() updateKaam: Kaam) {
     const { title, description, salary } = updateKaam;
